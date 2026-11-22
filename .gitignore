@@ -1,1 +1,6 @@
 data/*
+src/data/
+checkpoints/
+__pycache__/
+*.pyc
+*.pyo

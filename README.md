@@ -60,6 +60,15 @@ git clone https://github.com/SaynaEbrahimi/UCB.git
 
 - To run all the experiments use `src/run.py --experiment <name>` where `name` can be [`mnist2`, `mnist5`, `pmnist`, `cifar`, `mixture`].
 
+For CPU training, select the UCB approach and CPU device explicitly. From the
+repository root, for example:
+
+```powershell
+python .\src\run.py --experiment mnist2 --approach ucb --device cpu --data_path .\src\data --checkpoint_dir .\checkpoints
+```
+
+MNIST is downloaded to the specified data path if it is not already present.
+
 
 
 ## License

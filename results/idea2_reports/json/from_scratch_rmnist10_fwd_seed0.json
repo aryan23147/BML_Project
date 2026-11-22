@@ -1,0 +1,95 @@
+{
+  "experiment": "rmnist10",
+  "reverse": false,
+  "seed": 0,
+  "nepochs": 5,
+  "sbatch": 256,
+  "lr": 0.05,
+  "nhid": 200,
+  "nlayers": 2,
+  "samples": 3,
+  "eval_samples": 5,
+  "mean_learning_curve_auc_all": 0.9284066666666666,
+  "mean_learning_curve_auc_tasks_1_to_T": 0.9284250000000001,
+  "mean_test_acc": 0.9449799999999999,
+  "total_runtime_sec": 495.61547790000077,
+  "peak_cpu_memory_mb": 1964.95703125,
+  "peak_gpu_memory_mb": 0.0,
+  "tasks": {
+    "0": {
+      "task_id": 0,
+      "name": "rmnist-0deg",
+      "learning_curve_auc": 0.9283333333333333,
+      "epoch_valid_accs": [
+        0.9025,
+        0.9245,
+        0.9326666666666666,
+        0.9393333333333334,
+        0.9426666666666667
+      ],
+      "test_acc": 0.9449,
+      "test_loss": 0.20369836156368257,
+      "runtime_sec": 88.00684870000077
+    },
+    "1": {
+      "task_id": 1,
+      "name": "rmnist-10deg",
+      "learning_curve_auc": 0.9269333333333334,
+      "epoch_valid_accs": [
+        0.9033333333333333,
+        0.9226666666666666,
+        0.9323333333333333,
+        0.9356666666666666,
+        0.9406666666666667
+      ],
+      "test_acc": 0.9461,
+      "test_loss": 0.20025485213994978,
+      "runtime_sec": 97.91740350000055
+    },
+    "2": {
+      "task_id": 2,
+      "name": "rmnist-20deg",
+      "learning_curve_auc": 0.9291333333333333,
+      "epoch_valid_accs": [
+        0.9026666666666666,
+        0.9241666666666667,
+        0.934,
+        0.94,
+        0.9448333333333333
+      ],
+      "test_acc": 0.9433,
+      "test_loss": 0.20388749737739564,
+      "runtime_sec": 100.20040309999968
+    },
+    "3": {
+      "task_id": 3,
+      "name": "rmnist-30deg",
+      "learning_curve_auc": 0.9290666666666668,
+      "epoch_valid_accs": [
+        0.9033333333333333,
+        0.9241666666666667,
+        0.9343333333333333,
+        0.9391666666666667,
+        0.9443333333333334
+      ],
+      "test_acc": 0.9467,
+      "test_loss": 0.2062572574734688,
+      "runtime_sec": 104.55980129999989
+    },
+    "4": {
+      "task_id": 4,
+      "name": "rmnist-40deg",
+      "learning_curve_auc": 0.9285666666666665,
+      "epoch_valid_accs": [
+        0.9051666666666667,
+        0.925,
+        0.9315,
+        0.938,
+        0.9431666666666667
+      ],
+      "test_acc": 0.9439,
+      "test_loss": 0.203907407194376,
+      "runtime_sec": 101.42068860000018
+    }
+  }
+}

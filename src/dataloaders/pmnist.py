@@ -1,84 +1,63 @@
-import os, sys
 import numpy as np
 import torch
-from torchvision import datasets, transforms
-from sklearn.utils import shuffle
+from torchvision import datasets
 
 
-########################################################################################################################
-
-def get(seed=0, fixed_order=False, pc_valid=0):
+def get(data_path='../data/', seed=0, fixed_order=False, pc_valid=0.1, nperm=10, reverse=False):
+    """
+    Fast vectorized Permuted-MNIST dataloader:
+      - 10 fixed pixel-permutation tasks (Task 0 is unpermuted identity when fixed_order=True).
+      - Retains 10-class digit semantics across all tasks.
+    """
     data = {}
     taskcla = []
     size = [1, 28, 28]
 
-    nperm = 10
-    seeds = np.array(list(range(nperm)), dtype=int)
+    seeds = list(range(nperm))
     if not fixed_order:
-        seeds = shuffle(seeds, random_state=seed)
+        rng = np.random.default_rng(seed)
+        seeds = rng.permutation(seeds).tolist()
+    if reverse:
+        seeds = list(reversed(seeds))
 
-    if not os.path.isdir('/home/sayna/scratch/sayna/data/binary_pmnist/'):
-        os.makedirs('/home/sayna/scratch/sayna/data/binary_pmnist')
-        # Pre-load
-        # MNIST
-        mean = (0.1307,)
-        std = (0.3081,)
-        dat = {}
-        dat['train'] = datasets.MNIST('/scratch/sayna/data/', train=True, download=True, transform=transforms.Compose(
-            [transforms.ToTensor(), transforms.Normalize(mean, std)]))
-        dat['test'] = datasets.MNIST('/scratch/sayna/data/', train=False, download=True, transform=transforms.Compose(
-            [transforms.ToTensor(), transforms.Normalize(mean, std)]))
-        for i, r in enumerate(seeds):
-            print(i, end=',')
-            sys.stdout.flush()
-            data[i] = {}
-            data[i]['name'] = 'pmnist-{:d}'.format(i)
-            data[i]['ncla'] = 10
-            for s in ['train', 'test']:
-                loader = torch.utils.data.DataLoader(dat[s], batch_size=1, shuffle=False)
-                data[i][s] = {'x': [], 'y': []}
-                for image, target in loader:
-                    aux = image.view(-1).numpy()
-                    aux = shuffle(aux, random_state=r * 100 + i)
-                    image = torch.FloatTensor(aux).view(size)
-                    data[i][s]['x'].append(image)
-                    data[i][s]['y'].append(target.numpy()[0])
+    train_raw = datasets.MNIST(data_path, train=True, download=True)
+    test_raw = datasets.MNIST(data_path, train=False, download=True)
 
-            # "Unify" and save
-            for s in ['train', 'test']:
-                data[i][s]['x'] = torch.stack(data[i][s]['x']).view(-1, size[0], size[1], size[2])
-                data[i][s]['y'] = torch.LongTensor(np.array(data[i][s]['y'], dtype=int)).view(-1)
-                torch.save(data[i][s]['x'],os.path.join(os.path.expanduser('/scratch/sayna/data/binary_pmnist'), 'data' + str(r) + s + 'x.bin'))
-                torch.save(data[i][s]['y'],os.path.join(os.path.expanduser('/scratch/sayna/data/binary_pmnist'), 'data' + str(r) + s + 'y.bin'))
-        print()
+    g = torch.Generator().manual_seed(seed)
+    perm_split = torch.randperm(len(train_raw), generator=g)
+    n_valid = int(len(train_raw) * pc_valid)
+    valid_idx, train_idx = perm_split[:n_valid], perm_split[n_valid:]
 
-    else:
+    mean, std = 0.1307, 0.3081
+    train_flat = ((train_raw.data.to(torch.float32) / 255.0 - mean) / std).view(len(train_raw), -1)
+    train_targets = train_raw.targets.to(torch.long)
 
-        # Load binary files
-        for i, r in enumerate(seeds):
-            data[i] = dict.fromkeys(['name', 'ncla', 'train', 'test'])
-            data[i]['ncla'] = 10
-            data[i]['name'] = 'pmnist-{:d}'.format(i)
+    test_flat = ((test_raw.data.to(torch.float32) / 255.0 - mean) / std).view(len(test_raw), -1)
+    test_targets = test_raw.targets.to(torch.long)
 
-            # Load
-            for s in ['train', 'test']:
-                data[i][s] = {'x': [], 'y': []}
-                data[i][s]['x'] = torch.load(os.path.join(os.path.expanduser('/scratch/sayna/data/binary_pmnist'), 'data' + str(r) + s + 'x.bin'))
-                data[i][s]['y'] = torch.load(os.path.join(os.path.expanduser('/scratch/sayna/data/binary_pmnist'), 'data' + str(r) + s + 'y.bin'))
+    for t, r in enumerate(seeds):
+        if r == 0:
+            pix_perm = torch.arange(28 * 28, dtype=torch.long)
+        else:
+            g_perm = torch.Generator().manual_seed(int(r * 100 + 7))
+            pix_perm = torch.randperm(28 * 28, generator=g_perm)
 
-    # Validation
-    for t in data.keys():
-        data[t]['valid'] = {}
-        data[t]['valid']['x'] = data[t]['train']['x'].clone()
-        data[t]['valid']['y'] = data[t]['train']['y'].clone()
-
-    # Others
-    n = 0
-    for t in data.keys():
-        taskcla.append((t, data[t]['ncla']))
-        n += data[t]['ncla']
-    data['ncla'] = n
+        data[t] = {
+            'name': f'pmnist-{r}',
+            'ncla': 10,
+            'train': {
+                'x': train_flat[train_idx][:, pix_perm].view(-1, 1, 28, 28).contiguous(),
+                'y': train_targets[train_idx].clone(),
+            },
+            'valid': {
+                'x': train_flat[valid_idx][:, pix_perm].view(-1, 1, 28, 28).contiguous(),
+                'y': train_targets[valid_idx].clone(),
+            },
+            'test': {
+                'x': test_flat[:, pix_perm].view(-1, 1, 28, 28).contiguous(),
+                'y': test_targets.clone(),
+            },
+        }
+        taskcla.append((t, 10))
 
     return data, taskcla, size
-
-########################################################################################################################

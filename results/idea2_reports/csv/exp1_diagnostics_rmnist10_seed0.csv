@@ -1,0 +1,5 @@
+mode,display_name,memory_regime,A_T_pct,BWT_pct,Forgetting_pct,LC_AUC_pct,Forward_Transfer_dAUC_1_to_4_pct,lr_D_max_min_ratio,mean_cos_sim,conflict_rate_pct,post_proj_violation_rate_pct,mean_post_proj_hd,mean_curvature_margin,finite_step_conflict_rate_pct,scale_interference_delta_loss,scale_interference_rate_pct,train_runtime_sec,peak_cpu_memory_mb
+ucb,UCB (Replay-Free),Replay-Free (0),86.5460,-11.2825,11.2825,94.7480,2.3842,2.4644,0.110493,13.86,100.00,-1.3315e-03,0.0000e+00,0.00,-9.4374e-09,2.22,499.68,1964.78
+ucb_raw_proj,UCB + Raw Proj (200),200-Example Buffer,89.6760,-7.4900,7.4900,94.7300,2.3617,2.4635,-0.000845,51.18,43.47,5.0571e-06,0.0000e+00,0.00,-9.0649e-08,0.56,326.05,1964.52
+ucb_d_proj,UCB + D-Proj (1st-Order),200-Example Buffer,89.6740,-7.4900,7.4900,94.7287,2.3600,2.4634,-0.000808,51.16,0.00,9.3039e-13,0.0000e+00,0.00,-9.7106e-08,0.56,570.49,1964.87
+ucb_d_proj_2nd,UCB + D-Proj (2nd-Order*),200-Example Buffer,90.2780,-6.6375,6.6850,94.7480,2.3858,2.4644,-0.004971,59.24,0.00,3.6432e-04,3.6356e-04,59.24,-3.1044e-09,0.56,542.27,1963.84

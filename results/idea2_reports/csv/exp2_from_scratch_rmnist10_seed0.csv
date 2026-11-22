@@ -1,0 +1,6 @@
+task_id,task_name,learning_curve_auc_pct,test_acc_pct,test_loss,runtime_sec
+0,rmnist-0deg,92.8333,94.4900,0.2037,88.01
+1,rmnist-10deg,92.6933,94.6100,0.2003,97.92
+2,rmnist-20deg,92.9133,94.3300,0.2039,100.20
+3,rmnist-30deg,92.9067,94.6700,0.2063,104.56
+4,rmnist-40deg,92.8567,94.3900,0.2039,101.42

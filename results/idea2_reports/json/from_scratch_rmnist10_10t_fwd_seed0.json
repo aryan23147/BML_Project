@@ -1,0 +1,172 @@
+{
+  "experiment": "rmnist10",
+  "tag": "rmnist10_10t",
+  "num_tasks": 10,
+  "reverse": false,
+  "seed": 0,
+  "nepochs": 5,
+  "sbatch": 256,
+  "lr": 0.05,
+  "nhid": 200,
+  "nlayers": 2,
+  "samples": 3,
+  "eval_samples": 5,
+  "mean_learning_curve_auc_all": 0.9286566666666667,
+  "mean_learning_curve_auc_tasks_1_to_T": 0.9286925925925927,
+  "mean_test_acc": 0.9437599999999999,
+  "total_runtime_sec": 885.7408902000006,
+  "peak_cpu_memory_mb": 3143.31640625,
+  "peak_gpu_memory_mb": 0.0,
+  "tasks": {
+    "0": {
+      "task_id": 0,
+      "name": "rmnist-0deg",
+      "learning_curve_auc": 0.9283333333333333,
+      "epoch_valid_accs": [
+        0.9025,
+        0.9245,
+        0.9326666666666666,
+        0.9393333333333334,
+        0.9426666666666667
+      ],
+      "test_acc": 0.9449,
+      "test_loss": 0.20369836156368257,
+      "runtime_sec": 79.98833919999925
+    },
+    "1": {
+      "task_id": 1,
+      "name": "rmnist-10deg",
+      "learning_curve_auc": 0.9269333333333334,
+      "epoch_valid_accs": [
+        0.9033333333333333,
+        0.9226666666666666,
+        0.9323333333333333,
+        0.9356666666666666,
+        0.9406666666666667
+      ],
+      "test_acc": 0.9461,
+      "test_loss": 0.20025485213994978,
+      "runtime_sec": 84.91028129999904
+    },
+    "2": {
+      "task_id": 2,
+      "name": "rmnist-20deg",
+      "learning_curve_auc": 0.9291333333333333,
+      "epoch_valid_accs": [
+        0.9026666666666666,
+        0.9241666666666667,
+        0.934,
+        0.94,
+        0.9448333333333333
+      ],
+      "test_acc": 0.9433,
+      "test_loss": 0.20388749737739564,
+      "runtime_sec": 85.93354379999982
+    },
+    "3": {
+      "task_id": 3,
+      "name": "rmnist-30deg",
+      "learning_curve_auc": 0.9290666666666668,
+      "epoch_valid_accs": [
+        0.9033333333333333,
+        0.9241666666666667,
+        0.9343333333333333,
+        0.9391666666666667,
+        0.9443333333333334
+      ],
+      "test_acc": 0.9467,
+      "test_loss": 0.2062572574734688,
+      "runtime_sec": 86.87080959999912
+    },
+    "4": {
+      "task_id": 4,
+      "name": "rmnist-40deg",
+      "learning_curve_auc": 0.9285666666666665,
+      "epoch_valid_accs": [
+        0.9051666666666667,
+        0.925,
+        0.9315,
+        0.938,
+        0.9431666666666667
+      ],
+      "test_acc": 0.9439,
+      "test_loss": 0.203907407194376,
+      "runtime_sec": 89.67353419999927
+    },
+    "5": {
+      "task_id": 5,
+      "name": "rmnist-50deg",
+      "learning_curve_auc": 0.9289,
+      "epoch_valid_accs": [
+        0.9053333333333333,
+        0.9226666666666666,
+        0.9338333333333333,
+        0.939,
+        0.9436666666666667
+      ],
+      "test_acc": 0.943,
+      "test_loss": 0.2048612145960331,
+      "runtime_sec": 89.56500469999992
+    },
+    "6": {
+      "task_id": 6,
+      "name": "rmnist-60deg",
+      "learning_curve_auc": 0.9291666666666668,
+      "epoch_valid_accs": [
+        0.9053333333333333,
+        0.9235,
+        0.933,
+        0.939,
+        0.945
+      ],
+      "test_acc": 0.9434,
+      "test_loss": 0.20308892011642457,
+      "runtime_sec": 87.62518610000006
+    },
+    "7": {
+      "task_id": 7,
+      "name": "rmnist-70deg",
+      "learning_curve_auc": 0.9280999999999999,
+      "epoch_valid_accs": [
+        0.9006666666666666,
+        0.923,
+        0.9345,
+        0.9385,
+        0.9438333333333333
+      ],
+      "test_acc": 0.9415,
+      "test_loss": 0.20066710748672487,
+      "runtime_sec": 93.25881490000029
+    },
+    "8": {
+      "task_id": 8,
+      "name": "rmnist-80deg",
+      "learning_curve_auc": 0.9298333333333334,
+      "epoch_valid_accs": [
+        0.9068333333333334,
+        0.9256666666666666,
+        0.9328333333333333,
+        0.9395,
+        0.9443333333333334
+      ],
+      "test_acc": 0.9426,
+      "test_loss": 0.2029442522883415,
+      "runtime_sec": 91.76995830000124
+    },
+    "9": {
+      "task_id": 9,
+      "name": "rmnist-90deg",
+      "learning_curve_auc": 0.9285333333333334,
+      "epoch_valid_accs": [
+        0.9031666666666667,
+        0.9245,
+        0.9315,
+        0.9383333333333334,
+        0.9451666666666667
+      ],
+      "test_acc": 0.9422,
+      "test_loss": 0.19987607065439225,
+      "runtime_sec": 92.25581140000031
+    }
+  }
+}
